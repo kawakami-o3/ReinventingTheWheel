@@ -7,3 +7,12 @@ let length_test1 = length [] = 0
 let length_test2 = length [1] = 1
 let length_test3 = length [3; 4; 5] = 3
 
+
+let rec nth lst n =
+  if n<0 then failwith "nth" else
+    match lst with
+    [] -> failwith "nth"
+    | first :: rest -> if n=0 then first else nth rest (n-1)
+
+let nth_test1 = nth [2; 1] 0 = 2
+let nth_test2 = nth [2; 1] 1 = 1
