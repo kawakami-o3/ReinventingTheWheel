@@ -14,3 +14,14 @@ fun nth lst n =
 nth [2,1] 0 = 2;
 nth [2,1] 1 = 1;
 
+
+fun append a b =
+  case a of
+       nil => b
+     | (h::t) => h :: (append t b);
+
+append [1] [2] = [1,2];
+append [] [2] = [2];
+(* append [] [] = []; *)
+append [1,2,3] [] = [1,2,3];
+
