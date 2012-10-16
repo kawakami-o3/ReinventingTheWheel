@@ -1,1 +1,7 @@
 *~
+*.o
+*.hi
+*.swp
+a.out
+*.cmo
+*.cmi
