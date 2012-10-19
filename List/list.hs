@@ -15,7 +15,7 @@ runTests ts = runTestTT $ TestList ts
 tests :: [[Test]]
 tests = [
     appendTests
-  --, concatTests
+  , concatTests
   --, mapTests
   --, concatMapTests
   --, filterTests
@@ -43,7 +43,7 @@ tests = [
   --, productTests
   --, maximumTests
   --, minimumTests
-  , lengthTests
+  ----, lengthTests
   --, reverseTests
   --, linesTests
   --, wordsTests
@@ -100,4 +100,19 @@ lengthTests = Prelude.map TestCase
   [ assertEqual "length [1,2,3]" 3 (length [1,2,3])
   , assertEqual "length []" 0 (length [])
   ]
+
+concat :: [[a]] -> [a]
+concat [] = []
+concat ([]:xs) = concat xs
+concat ((y:ys):xs) = y : concat (ys:xs)
+
+concatTests :: [Test]
+concatTests = Prelude.map TestCase
+  [ assertEqual "concat [[1,2],[3],[]]" [1,2,3] (concat [[1,2],[3],[]])
+  , assertEqual "concat [[1],[2,3],[]]" [1,2,3] (concat [[1],[2,3],[]])
+  , assertEqual "concat [[],[1],[2,3]]" [1,2,3] (concat [[],[1],[2,3]])
+  , assertEqual "concat []" ([] :: [Int]) (concat [])
+  , assertEqual "concat [[]]" ([] :: [Int]) (concat [[]])
+  ]
+
 
