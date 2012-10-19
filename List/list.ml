@@ -31,7 +31,25 @@ let rec append a b = match a with
 let append_test1 = append [0] [1] = [0; 1]
 
 
+let rec concat lst = match lst with
+  [] -> []
+  | [] :: rest -> concat rest
+  | (x::xs) :: rest -> x :: concat (xs::rest)
+
+let concat_test () = assertTrue "concat"
+  [ [1; 2; 3] = (concat [[1; 2]; [3]; []]);
+    [1; 2; 3] = (concat [[1]; [2; 3]; []]);
+    [1; 2; 3] = (concat [[]; [1]; [2; 3]]);
+    [] = (concat []);
+    [] = (concat [[]])
+  ]
+
+
 (* main : unit -> unit *)
-let main () = (length_test ();nth_test ())
+let main () = (
+  (*length_test ()*)
+  (*nth_test ()*)
+  concat_test ()
+  )
 
 let _ = main ()
