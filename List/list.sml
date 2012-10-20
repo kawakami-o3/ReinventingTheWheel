@@ -44,8 +44,19 @@ fun concat_test () =
   [ [1,2,3] = (concat [[1,2],[3],[]])
   , [1,2,3] = (concat [[1],[2,3],[]])
   , [1,2,3] = (concat [[],[1],[2,3]])
-  ,  nil = (concat [])
+  , nil = (concat [])
   , nil = (concat [[]])
+  ]
+
+
+fun map f lst =
+  case lst of
+       [] => []
+     | (h::t) => f h :: map f t
+
+fun map_test () =
+  [ [2,3,4] = (map (fn x => x + 1) [1,2,3])
+    , [] = (map (fn x => x + 1) [])
   ]
 
 
@@ -54,7 +65,8 @@ fun main () = (
   (* assertTrue "length" (length_test ()) *)
   (* assertTrue "nth" (nth_test ()) *)
   (*assertTrue "append" (append_test ())*)
-  assertTrue "concat" (concat_test ())
+  (*assertTrue "concat" (concat_test ())*)
+  assertTrue "map" (map_test ())
 );
 
 main ();
