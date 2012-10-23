@@ -55,12 +55,24 @@ let map_test () = assertTrue "map"
   ]
 
 
+let rec concatMap f lst = match lst with
+  [] -> []
+  | first :: rest -> append (f first) (concatMap f rest)
+
+let concatMap_test () = assertTrue "concatMap"
+[ [1;-1;2;-2] = (concatMap (fun x -> [x; -x]) [1;2]);
+    [] = (concatMap (fun x -> [x; -x]) [])
+  ]
+
+
+
 (* main : unit -> unit *)
 let main () = (
   (*length_test ();*)
   (*nth_test ();*)
   (*concat_test ();*)
-  map_test ()
+  (*map_test ()*)
+  concatMap_test ()
   )
 
 let _ = main ()

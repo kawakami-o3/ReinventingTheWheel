@@ -16,8 +16,8 @@ tests :: [[Test]]
 tests = [
     appendTests
   --, concatTests
-  , mapTests
-  --, concatMapTests
+  --, mapTests
+  , concatMapTests
   --, filterTests
   --, untilTests
   --, andTests
@@ -127,5 +127,18 @@ mapTests = Prelude.map TestCase
   [ assertEqual "map (\\x -> x + 1) [1,2,3]"
                 [2,3,4] (map (\x -> x + 1) [1,2,3])
   , assertEqual "map (\\x -> x + 1) []" [] (map (\x -> x + 1) [])
+  ]
+
+
+concatMap :: (a -> [b]) -> [a] -> [b]
+concatMap _ [] = []
+concatMap f (x:xs) = f x ++ concatMap f xs
+
+concatMapTests :: [Test]
+concatMapTests = Prelude.map TestCase
+  [ assertEqual "concatMap (\\x -> [x, -x]) [1,2]"
+                [1,-1,2,-2] (concatMap (\x -> [x, -x]) [1,2])
+  , assertEqual "concatMap (\\x -> [x, -x]) []"
+                [] (concatMap (\x -> [x, -x]) [])
   ]
 

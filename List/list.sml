@@ -60,13 +60,25 @@ fun map_test () =
   ]
 
 
+fun concatMap f lst =
+  case lst of
+       [] => []
+     | (x::xs) => append (f x) (concatMap f xs)
+
+fun concatMap_test () =
+  [ [1,~1,2,~2] = (concatMap (fn x => [x, ~x]) [1,2]),
+    [] = (concatMap (fn x => [x, ~x]) [])
+  ]
+
+
 (*---------------------------------------------------------*)
 fun main () = (
   (* assertTrue "length" (length_test ()) *)
   (* assertTrue "nth" (nth_test ()) *)
   (*assertTrue "append" (append_test ())*)
   (*assertTrue "concat" (concat_test ())*)
-  assertTrue "map" (map_test ())
+  (*assertTrue "map" (map_test ())*)
+  assertTrue "concatMap" (concatMap_test ())
 );
 
 main ();
