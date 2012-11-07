@@ -44,8 +44,8 @@ fun concat_test () =
   [ [1,2,3] = (concat [[1,2],[3],[]])
   , [1,2,3] = (concat [[1],[2,3],[]])
   , [1,2,3] = (concat [[],[1],[2,3]])
-  , nil = (concat [])
-  , nil = (concat [[]])
+  , [] = (concat [])
+  , [] = (concat [[]])
   ]
 
 
@@ -71,6 +71,22 @@ fun concatMap_test () =
   ]
 
 
+fun filter f lst =
+  case lst of
+       [] => []
+     | (h::t) => if f h then h :: filter f t else filter f t
+
+fun filter_test () =
+  let
+    fun even n = n mod 2 = 0;
+  in
+    [ [2,4] = (filter even [1,2,3,4]),
+      [] = (filter even [1,3,5]),
+(*      ([] : int list) = (filter even [])*)
+      ([]) = (filter even [])
+    ] 
+  end
+
 (*---------------------------------------------------------*)
 fun main () = (
   (* assertTrue "length" (length_test ()) *)
@@ -78,7 +94,8 @@ fun main () = (
   (*assertTrue "append" (append_test ())*)
   (*assertTrue "concat" (concat_test ())*)
   (*assertTrue "map" (map_test ())*)
-  assertTrue "concatMap" (concatMap_test ())
+  (*assertTrue "concatMap" (concatMap_test ())*)
+  assertTrue "filter" (filter_test ())
 );
 
 main ();
