@@ -65,6 +65,19 @@ let concatMap_test () = assertTrue "concatMap"
   ]
 
 
+let rec filter f x = match x with
+    [] -> []
+  | h::t -> if f h then h :: filter f t else filter f t
+
+let filter_test () =
+  let even x = (x mod 2 = 0)
+  in
+  assertTrue "filter"
+  [  [2;4] = (filter even [1;2;3;4]);
+   [] = (filter even [1;3;5]);
+   [] = (filter even [])
+  ]
+
 
 (* main : unit -> unit *)
 let main () = (
@@ -72,7 +85,8 @@ let main () = (
   (*nth_test ();*)
   (*concat_test ();*)
   (*map_test ()*)
-  concatMap_test ()
+  (*concatMap_test ()*)
+  filter_test ()
   )
 
 let _ = main ()
