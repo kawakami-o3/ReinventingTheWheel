@@ -17,8 +17,8 @@ tests = [
     appendTests
   --, concatTests
   --, mapTests
-  --, concatMapTests
-  , filterTests
+  , concatMapTests
+  --, filterTests
   --, untilTests
   --, andTests
   --, orTests
@@ -141,20 +141,4 @@ concatMapTests = Prelude.map TestCase
   , assertEqual "concatMap (\\x -> [x, -x]) []"
                 [] (concatMap (\x -> [x, -x]) [])
   ]
-
-
-filter :: (a -> Bool) -> [a] -> [a]
-filter _ [] = []
-filter f (x:xs) = if f x
-                  then x : filter f xs
-                  else filter f xs
-
-filterTests :: [Test]
-filterTests = Prelude.map TestCase
-  -- 基本のテスト
-  [ assertEqual "filter even [1,2,3,4]" [2,4] (filter even [1,2,3,4])
-  , assertEqual "filter even [1,3,5]" [] (filter even [1,3,5])
-  , assertEqual "filter even []" ([] :: [Int]) (filter even [])
-  ]
-
 
