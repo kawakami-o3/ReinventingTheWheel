@@ -18,8 +18,8 @@ tests = [
   --, concatTests
   --, mapTests
   --, concatMapTests
-  , filterTests
-  --, untilTests
+  --, filterTests
+  , untilTests
   --, andTests
   --, orTests
   --, anyTests
@@ -151,10 +151,18 @@ filter f (x:xs) = if f x
 
 filterTests :: [Test]
 filterTests = Prelude.map TestCase
-  -- 基本のテスト
   [ assertEqual "filter even [1,2,3,4]" [2,4] (filter even [1,2,3,4])
   , assertEqual "filter even [1,3,5]" [] (filter even [1,3,5])
   , assertEqual "filter even []" ([] :: [Int]) (filter even [])
   ]
 
+
+until :: (a -> Bool) -> (a -> a) -> a -> a
+until f g x = if f x then x else until f g (g x)
+
+untilTests :: [Test]
+untilTests = Prelude.map TestCase
+  [ assertEqual "until (<= 1.0) (/ 2) 100.0"
+                0.78125 (until (<= 1.0) (/ 2) 100.0)
+  ]
 

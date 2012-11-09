@@ -87,6 +87,15 @@ fun filter_test () =
     ] 
   end
 
+
+fun until f g x = x
+
+fun until_test () =
+  [ 0.78125 = (until (<=
+  ]
+
+
+
 (*---------------------------------------------------------*)
 fun main () = (
   (* assertTrue "length" (length_test ()) *)
@@ -95,7 +104,8 @@ fun main () = (
   (*assertTrue "concat" (concat_test ())*)
   (*assertTrue "map" (map_test ())*)
   (*assertTrue "concatMap" (concatMap_test ())*)
-  assertTrue "filter" (filter_test ())
+  (*assertTrue "filter" (filter_test ())*)
+  assertTrue "until" (until_test ())
 );
 
 main ();
