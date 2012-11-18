@@ -88,13 +88,21 @@ fun filter_test () =
   end
 
 
-fun until f g x = x
+fun until f g x = if f x then x else until f g (g x)
 
 fun until_test () =
-  [ 0.78125 = (until (<=
+  [ 6 = (until (fn x => x <= 10) (fn x => x div 2) 100) ]
+  (*[ 0.78125 = (until (fn x => x <= 1.0) (fn x => x / 2.0) 100.0) ]*)
+
+fun myAnd x =
+  case x of
+       [] => true
+     | (h::t) => if h then myAnd t else false
+
+fun and_test () =
+  [ true = myAnd [true, true, true],
+    false = myAnd [true, false, true]
   ]
-
-
 
 (*---------------------------------------------------------*)
 fun main () = (
@@ -105,7 +113,8 @@ fun main () = (
   (*assertTrue "map" (map_test ())*)
   (*assertTrue "concatMap" (concatMap_test ())*)
   (*assertTrue "filter" (filter_test ())*)
-  assertTrue "until" (until_test ())
+  (*assertTrue "until" (until_test ())*)
+  assertTrue "and" (and_test ())
 );
 
 main ();
