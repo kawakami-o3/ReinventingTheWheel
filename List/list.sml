@@ -1,3 +1,5 @@
+fun even n = n mod 2 = 0
+
 fun assertTrue str lst =
   case lst of
        nil => print ("OK: "^str^"\n")
@@ -77,23 +79,19 @@ fun filter f lst =
      | (h::t) => if f h then h :: filter f t else filter f t
 
 fun filter_test () =
-  let
-    fun even n = n mod 2 = 0;
-  in
-    [ [2,4] = (filter even [1,2,3,4]),
-      [] = (filter even [1,3,5]),
+  [ [2,4] = (filter even [1,2,3,4]),
+    [] = (filter even [1,3,5]),
 (*      ([] : int list) = (filter even [])*)
-      ([]) = (filter even [])
-    ] 
-  end
+    ([]) = (filter even [])
+  ] 
 
-
+(*
 fun until f g x = x
 
 fun until_test () =
   [ 0.78125 = (until (<=
   ]
-
+  *)
 
 
 (*---------------------------------------------------------*)
@@ -104,8 +102,8 @@ fun main () = (
   (*assertTrue "concat" (concat_test ())*)
   (*assertTrue "map" (map_test ())*)
   (*assertTrue "concatMap" (concatMap_test ())*)
-  (*assertTrue "filter" (filter_test ())*)
-  assertTrue "until" (until_test ())
+  assertTrue "filter" (filter_test ())
+  (*assertTrue "until" (until_test ())*)
 );
 
 main ();
