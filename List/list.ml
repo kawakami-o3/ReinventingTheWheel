@@ -78,6 +78,24 @@ let filter_test () =
    [] = (filter even [])
   ]
 
+let rec until f g x = if f x then x else until f g (g x)
+
+let until_test () =
+  assertTrue "until"
+  [ 6 = (until (fun x -> x <= 10) (fun x -> x / 2) 100) ]
+
+
+let rec myAnd lst = match lst with
+  [] -> true
+  | h::t -> if h then myAnd t else false
+
+let and_test () =
+  assertTrue "and"
+  [ true = (myAnd [true;true;true]);
+    false = (myAnd [true;false;true]);
+    true = (myAnd [])
+  ]
+
 
 (* main : unit -> unit *)
 let main () = (
@@ -86,7 +104,9 @@ let main () = (
   (*concat_test ();*)
   (*map_test ()*)
   (*concatMap_test ()*)
-  filter_test ()
+  (*filter_test ()*)
+  (*and_test ()*)
+  until_test ()
   )
 
 let _ = main ()

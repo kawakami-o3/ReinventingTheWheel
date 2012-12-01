@@ -19,8 +19,8 @@ tests = [
   --, mapTests
   --, concatMapTests
   --, filterTests
-  , untilTests
-  --, andTests
+  --, untilTests
+  , andTests
   --, orTests
   --, anyTests
   --, allTests
@@ -165,4 +165,16 @@ untilTests = Prelude.map TestCase
   [ assertEqual "until (<= 1.0) (/ 2) 100.0"
                 0.78125 (until (<= 1.0) (/ 2) 100.0)
   ]
+
+and :: [Bool] -> Bool
+and [] = True
+and (x:xs) = if x then and xs else False
+
+andTests :: [Test]
+andTests = Prelude.map TestCase
+  [ assertEqual "and [True,True,True]" True (and [True,True,True])
+  , assertEqual "and [True,False,True]" False (and [True,False,True])
+  , assertEqual "and []" True (and [])
+  ]
+
 
